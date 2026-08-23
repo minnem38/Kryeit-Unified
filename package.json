@@ -1,0 +1,17 @@
+{
+  "name": "kryeit-unified",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "private": true,
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.27.0",
+    "install": "^0.13.0",
+    "undici": "^8.10.0"
+  }
+}
