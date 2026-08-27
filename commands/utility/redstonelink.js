@@ -7,7 +7,7 @@ const playerBlockPath = path.join(__dirname, '../../playerblocks.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('redstonelink2')
+        .setName('redstonelink')
         .setDescription('Gives you a unique item/block for your redstone links!'),
     async execute(interaction) {
         await interaction.deferReply();
