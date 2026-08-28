@@ -4,6 +4,7 @@ const path = require('node:path');
 const { players } = require('../../playerblocks.json');
 const { blocks } = require('../../blocks.json');
 const playerBlockPath = path.join(__dirname, '../../playerblocks.json');
+const blocksPath = path.join(__dirname, '../../blocks.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -17,7 +18,17 @@ module.exports = {
             randomBlock = existingPlayer.block;
         }
         else {
-            randomBlock = blocks[Math.floor(Math.random() * blocks.length)];
+            if (blocks.length === 0) {
+                await interaction.editReply(
+                    {
+                        content: "Sorry, there aren't any blocks left..."
+                    }
+                );
+            return;
+            }
+            const randomIndex = Math.floor(Math.random() * blocks.length);
+
+            [randomBlock] = blocks.splice(randomIndex, 1);
 
             players.push({
                 discordId: interaction.user.id,
@@ -28,6 +39,11 @@ module.exports = {
                 playerBlockPath,
                 JSON.stringify({ players: players }, null, 2)
             );
+
+            fs.writeFileSync(
+                blocksPath,
+                JSON.stringify({ blocks: blocks }, null, 2)
+            )
         }
 
         await interaction.editReply({

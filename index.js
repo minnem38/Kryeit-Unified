@@ -34,6 +34,24 @@ for (const folder of commandFolders) {
     }
 }
 client.on(Events.InteractionCreate, async (interaction) => {
+    if (interaction.isAutocomplete()) {
+        const command = interaction.client.commands.get(interaction.commandName);
+
+        if (!command) {
+            console.error(`No command matching ${interaction.commandName} was found.`);
+            return;
+        }
+
+        try {
+            if (command.autocomplete) {
+                await command.autocomplete(interaction);
+            }
+        } catch (error) {
+            console.error('Autocomplete Error:', error);
+        }
+        return;
+    }
+
     if (!interaction.isChatInputCommand()) return;
     const command = interaction.client.commands.get(interaction.commandName);
 
